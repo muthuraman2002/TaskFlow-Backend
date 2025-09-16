@@ -25,10 +25,16 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(',')
-print(ALLOWED_HOSTS)
+# ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS',"").split(',')
+
+
+CORS_ALLOWED_ORIGINS = [
+    host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") if host
+]
+
+# print(ALLOWED_HOSTS)
 APPEND_SLASH = False   # default
 
 CORS_ALLOW_ALL_ORIGINS = True
